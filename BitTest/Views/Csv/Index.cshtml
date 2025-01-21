@@ -1,0 +1,37 @@
+﻿@model IEnumerable<BitTest.Models.CsvRecord>
+
+@{
+    ViewData["Title"] = "CSV Records";
+}
+<h2>CSV Records</h2>
+
+@if (!Model.Any())
+{
+    <p>No records found.</p>
+}
+else
+{
+    <table border="1" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Date of Birth</th>
+                <th>Married</th>
+                <th>Phone</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in Model)
+            {
+                <tr>
+                    <td>@record.Name</td>
+                    <td>@record.DateOfBirth.ToShortDateString()</td>
+                    <td>@(record.Married ? "Yes" : "No")</td>
+                    <td>@record.Phone</td>
+                    <td>@record.Salary.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
