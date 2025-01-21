@@ -3,6 +3,11 @@
 @{
     ViewData["Title"] = "CSV Records";
 }
+
+<link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" defer></script>
+
 <h2>CSV Records</h2>
 
 @if (!Model.Any())
@@ -11,7 +16,7 @@
 }
 else
 {
-    <table border="1" style="width: 100%; border-collapse: collapse;">
+    <table id="csvTable" class="display" style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>
                 <th>Name</th>
@@ -26,7 +31,12 @@ else
             {
                 <tr>
                     <td>@record.Name</td>
-                    <td>@record.DateOfBirth.ToShortDateString()</td>
+                    @{
+                        // Convert the Date of Birth to "dd-mm-yyyy" format
+                        var dateOfBirth = record.DateOfBirth.ToString("dd-MM-yyyy");
+                        var timestamp = ((DateTimeOffset)record.DateOfBirth).ToUnixTimeSeconds(); 
+                    }
+                    <td data-sort="@timestamp">@dateOfBirth</td>
                     <td>@(record.Married ? "Yes" : "No")</td>
                     <td>@record.Phone</td>
                     <td>@record.Salary.ToString("C")</td>
@@ -34,4 +44,17 @@ else
             }
         </tbody>
     </table>
+
+    <script>
+        $(document).ready(function () {
+            $('#csvTable').DataTable({
+                "paging": true, 
+                "searching": true, 
+                "ordering": true, 
+                "info": true, 
+                "lengthMenu": [10, 25, 50, 100], 
+                "order": [[1, 'asc']] 
+            });
+        });
+    </script>
 }
