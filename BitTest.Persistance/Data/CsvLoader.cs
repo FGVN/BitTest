@@ -2,6 +2,7 @@
 using BitTest.Core.Models;
 using BitTest.Core.Validators;
 using CsvHelper;
+using System.Data;
 using System.Globalization;
 
 namespace BitTest.Persistance.Data;
@@ -36,10 +37,11 @@ public class CsvLoader
         }.Where(error => !string.IsNullOrEmpty(error)).ToList();
 
             if (validationErrors.Any())
-            {
                 throw new Exception($"Validation failed for record: {string.Join(", ", validationErrors)}");
-            }
 
+            if (_context.CsvRecords.Select(x => x.Phone).Contains(dto.Phone))
+                throw new ArgumentException($"File has not been uploaded. Phone {dto.Phone} is already present in the database.");
+            
             entities.Add(new CsvRecord(dto.Name, dto.DateOfBirth, dto.Married, dto.Phone, dto.Salary));
         }
 

@@ -2,15 +2,16 @@
 using BitTest.Core.Requests;
 using BitTest.Core.Validators;
 using BitTest.Persistance.Data;
+using BitTest.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BitTest.Controllers;
 
-public partial class CsvController : Controller
+public partial class TableController : Controller
 {
     private readonly CsvDbContext _context;
 
-    public CsvController(CsvDbContext context)
+    public TableController(CsvDbContext context)
     {
         _context = context;
     }
@@ -19,7 +20,7 @@ public partial class CsvController : Controller
     public IActionResult Index()
     {
         var records = _context.CsvRecords.ToList(); 
-        return View(records);
+        return View(new TableViewModel { records = records});
     }
 
     [HttpPost]

@@ -7,7 +7,7 @@
         let newValue = cell.text();
 
         $.ajax({
-            url: '/Csv/Update',
+            url: '/Table/Update',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
@@ -21,6 +21,7 @@
             error: function (xhr) {
                 try {
                     let response = JSON.parse(xhr.responseText);
+                    console.log(response);
                     let errorMessage = response.error || "An unknown error occurred.";
                     let originalValue = response.originalValue || cell.data('originalValue');
                     showError(`Error updating column: ${errorMessage}`);

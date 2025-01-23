@@ -1,5 +1,5 @@
-﻿@model IEnumerable<BitTest.Core.Models.CsvRecord>
-
+﻿@using BitTest.ViewModels
+@model TableViewModel
 @{
     ViewData["Title"] = "CSV Records";
 }
@@ -30,7 +30,7 @@
 
 <h2>CSV Records</h2>
 
-@if (!Model.Any())
+@if (!Model.records.Any())
 {
     <p>No records found.</p>
 }
@@ -48,7 +48,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var record in Model)
+            @foreach (var record in Model.records)
             {
                 <tr data-id="@record.Id">
                     <td contenteditable="true" class="editable" data-column="Name">@record.Name</td>
@@ -65,7 +65,7 @@ else
                         </select>
                     </td>
                     <td contenteditable="true" class="editable" data-column="Phone">@record.Phone</td>
-                    <td contenteditable="true" class="editable" data-column="Salary">@record.Salary.ToString("C")</td>
+                    <td contenteditable="true" class="editable" data-column="Salary">@record.Salary</td>
                     <td>
                         <button class="delete-btn" data-id="@record.Id">Delete</button> 
                     </td>

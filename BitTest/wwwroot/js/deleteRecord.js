@@ -19,7 +19,7 @@
         let row = $('.delete-btn[data-id="' + recordToDelete + '"]').closest('tr');
 
         $.ajax({
-            url: '/Csv/Delete',
+            url: '/Table/Delete',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ Id: recordToDelete }),

@@ -5,7 +5,7 @@
         let newValue = selector.val();
 
         $.ajax({
-            url: '/Csv/Update',
+            url: '/Table/Update',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
