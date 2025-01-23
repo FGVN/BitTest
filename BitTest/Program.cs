@@ -1,6 +1,6 @@
 using BitTest.Data;
-using BitTest.Services;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +11,11 @@ builder.Services.AddDbContext<CsvDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CsvDatabase"))
 );
 
-builder.Services.AddScoped<CsvValidationService>();
 builder.Services.AddScoped<CsvLoader>();
+
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+
+
 
 var app = builder.Build();
 
