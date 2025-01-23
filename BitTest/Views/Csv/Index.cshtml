@@ -3,10 +3,30 @@
 @{
     ViewData["Title"] = "CSV Records";
 }
+<link rel="stylesheet" href="~/css/TableView.css">
+
 
 <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" defer></script>
+
+
+
+<div id="deleteModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h3>Are you sure you want to delete this record?</h3>
+        <button id="confirmDelete" class="delete-btn-modal">Delete</button>
+        <button id="cancelDelete" class="cancel-btn">Cancel</button>
+    </div>
+</div>
+
+<div id="error-message" style="display: none; position: fixed; top: 0; left: 0; width: 100%; background-color: #e74c3c; color: white; text-align: center; padding: 10px; font-size: 16px; z-index: 9999;">
+    <span id="error-text"></span>
+    <button onclick="$('#error-message').fadeOut();" style="background: none; border: none; color: white; font-size: 16px; cursor: pointer;">×</button>
+</div>
+
+
 
 <h2>CSV Records</h2>
 
@@ -53,125 +73,12 @@ else
             }
         </tbody>
     </table>
-    <script>
-        $(document).ready(function () {
-            const table = $('#csvTable').DataTable({
-                "paging": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "lengthMenu": [10, 25, 50, 100],
-                "order": [[1, 'asc']]
-            });
 
-            $('#csvTable').on('change', '.married-selector', function () {
-                let selector = $(this);
-                let recordId = selector.data('id');
-                let newValue = selector.val(); 
 
-                $.ajax({
-                    url: '/Csv/Update', 
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        Id: recordId,
-                        Column: "Married",
-                        Value: newValue
-                    }),
-                    success: function () {
-                        alert('Married status updated successfully.');
-                    },
-                    error: function (xhr) {
-                        alert(`Error updating married status: ${xhr.responseText || "An unknown error occurred."}`);
-                        selector.val(selector.data('originalValue'));
-                    },
-                    beforeSend: function () {
-                        selector.data('originalValue', selector.val());
-                    }
-                });
-            });
-
-            $('#csvTable').on('change', '.editable-date', function () {
-                let input = $(this);
-                let recordId = input.closest('tr').data('id');
-                let newValue = input.val();
-
-                $.ajax({
-                    url: '/Csv/Update', 
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        Id: recordId,
-                        Column: "DateOfBirth",
-                        Value: newValue
-                    }),
-                    success: function () {
-                        console.log('Date of Birth updated successfully.');
-                    },
-                    error: function (xhr) {
-                        alert(`Error updating Date of Birth: ${xhr.responseText || "An unknown error occurred."}`);
-                    }
-                });
-            });
-
-            $('#csvTable').on('blur', '.editable', function () {
-                let cell = $(this);
-                let row = cell.closest('tr');
-                let recordId = row.data('id');
-                let column = cell.data('column');
-                let newValue = cell.text();
-
-                $.ajax({
-                    url: '/Csv/Update',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        Id: recordId,
-                        Column: column,
-                        Value: newValue
-                    }),
-                    success: function () {
-                        console.log('Record updated successfully.');
-                    },
-                    error: function (xhr) {
-                        try {
-                            let response = JSON.parse(xhr.responseText);
-                            let errorMessage = response.error || "An unknown error occurred.";
-                            let originalValue = response.originalValue || cell.data('originalValue');
-                            alert(`Error updating record: ${errorMessage}`);
-                            cell.text(originalValue);
-                        } catch (e) {
-                            alert(`Error updating record: ${xhr.responseText || "An unknown error occurred."}`);
-                            cell.text(cell.data('originalValue'));
-                        }
-                    },
-                    beforeSend: function () {
-                        cell.data('originalValue', cell.text());
-                    }
-                });
-            });
-
-            $('#csvTable').on('click', '.delete-btn', function () {
-                let button = $(this);
-                let recordId = button.data('id');
-                let row = button.closest('tr');
-
-                if (confirm('Are you sure you want to delete this record?')) {
-                    $.ajax({
-                        url: '/Csv/Delete',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify({ Id: recordId }),
-                        success: function () {
-                            alert('Record deleted successfully.');
-                            table.row(row).remove().draw();
-                        },
-                        error: function (xhr) {
-                            alert(`Error deleting record: ${xhr.responseText || "An unknown error occurred."}`);
-                        }
-                    });
-                }
-            });
-        });
-    </script>
+    <script src="~/js/deleteRecord.js"></script>
+    <script src="~/js/tableInit.js"></script>
+    <script src="~/js/updateCell.js"></script>
+    <script src="~/js/updateDate.js"></script>
+    <script src="~/js/updateMarried.js"></script>
+    <script src="~/js/utils.js"></script>
 }

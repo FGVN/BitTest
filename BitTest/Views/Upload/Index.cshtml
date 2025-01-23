@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Upload File";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+
+<link rel="stylesheet" href="~/css/Upload.css">
+
+<section class="form-section">
+    <h2 class="page-title">Upload a File</h2>
+
+    <form asp-action="Upload" asp-controller="Upload" method="post" enctype="multipart/form-data" class="upload-form">
+        <div class="form-group">
+            <label for="file" class="file-label">Select File:</label>
+            <input type="file" id="file" name="file" class="file-input" />
+        </div>
+        <button type="submit" class="upload-btn">Upload</button>
+    </form>
+</section>
+

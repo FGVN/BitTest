@@ -16,7 +16,7 @@ namespace BitTest.Controllers
         }
 
         [HttpGet]
-        public IActionResult Upload()
+        public IActionResult Index()
         {
             return View();
         }
@@ -27,8 +27,8 @@ namespace BitTest.Controllers
             var validationResult = _uploadValidator.Validate(file);
             if (!validationResult.IsValid)
             {
-                ViewBag.ErrorMessage = string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage));
-                return View();
+                TempData["ErrorMessage"] = string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage));
+                return RedirectToAction(nameof(Index));
             }
 
             try
@@ -47,14 +47,15 @@ namespace BitTest.Controllers
 
                 await _csvLoader.LoadCsvToDatabaseAsync(filePath);
 
-                ViewBag.SuccessMessage = "File uploaded successfully!";
+                TempData["SuccessMessage"] = "File uploaded successfully!";
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorMessage = $"An error occurred while uploading the file: {ex.Message}";
+                TempData["ErrorMessage"] = $"An error occurred while uploading the file: {ex.Message}";
             }
 
-            return View();
+            return RedirectToAction(nameof(Index));
         }
+
     }
 }

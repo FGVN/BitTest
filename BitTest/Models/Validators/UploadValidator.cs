@@ -33,7 +33,7 @@ namespace BitTest.Models
                         .Select(line => line.Replace(" ", ""))
                         .ToList();
 
-                    var requiredFields = typeof(CsvRecord)
+                    var requiredFields = typeof(CsvRecordDto)
                         .GetProperties(BindingFlags.Public | BindingFlags.Instance)
                         .Select(p => p.Name)
                         .ToList();
