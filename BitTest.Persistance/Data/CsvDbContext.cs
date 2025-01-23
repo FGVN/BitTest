@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using BitTest.Models;
+using BitTest.Core.Models;
 
-namespace BitTest.Data;
+namespace BitTest.Persistance.Data;
 
 public class CsvDbContext : DbContext
 {

@@ -1,4 +1,4 @@
-namespace BitTest.Models;
+namespace BitTest.ViewModels;
 
 public class ErrorViewModel
 {

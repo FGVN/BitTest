@@ -1,4 +1,4 @@
-﻿namespace BitTest.Controllers;
+﻿namespace BitTest.Core.Requests;
 
 public class DeleteRequest
 {

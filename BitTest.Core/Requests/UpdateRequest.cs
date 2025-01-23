@@ -1,4 +1,4 @@
-﻿namespace BitTest.Models;
+﻿namespace BitTest.Core.Requests;
 
 public class UpdateRequest
 {

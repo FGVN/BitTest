@@ -2,7 +2,7 @@
 using CsvHelper.Configuration;
 using CsvHelper.TypeConversion;
 
-namespace BitTest.Models;
+namespace BitTest.Core.Utils;
 
 public class DecimalConverter : DefaultTypeConverter
 {

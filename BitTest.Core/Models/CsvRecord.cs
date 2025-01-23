@@ -1,4 +1,4 @@
-﻿namespace BitTest.Models;
+﻿namespace BitTest.Core.Models;
 
 public class CsvRecord
 {

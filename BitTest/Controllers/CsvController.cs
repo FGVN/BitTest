@@ -1,5 +1,7 @@
-﻿using BitTest.Data;
-using BitTest.Models;
+﻿using BitTest.Core.Models;
+using BitTest.Core.Requests;
+using BitTest.Core.Validators;
+using BitTest.Persistance.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BitTest.Controllers;

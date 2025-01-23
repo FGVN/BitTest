@@ -1,6 +1,8 @@
-﻿using CsvHelper.Configuration;
+﻿using BitTest.Core.Models;
+using BitTest.Core.Utils;
+using CsvHelper.Configuration;
 
-namespace BitTest.Models;
+namespace BitTest.Core.Maps;
 
 public class CsvRecordDtoMap : ClassMap<CsvRecordDto>
 {

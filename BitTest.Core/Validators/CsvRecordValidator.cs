@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace BitTest.Models;
+namespace BitTest.Core.Validators;
 
 public static class CsvRecordValidator
 {

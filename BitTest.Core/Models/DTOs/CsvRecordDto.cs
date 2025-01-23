@@ -1,19 +1,10 @@
-﻿namespace BitTest.Models;
+﻿namespace BitTest.Core.Models;
 
-public class CsvRecordDto
+public record CsvRecordDto
 {
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
     public DateTime DateOfBirth { get; set; }
     public bool Married { get; set; }
-    public string Phone { get; set; }
+    public string Phone { get; set; } = string.Empty;
     public decimal Salary { get; set; }
-
-    public CsvRecordDto(string name, DateTime dateOfBirth, bool married, string phone, decimal salary)
-    {
-        Name = name;
-        DateOfBirth = dateOfBirth;
-        Married = married;
-        Phone = phone;
-        Salary = salary;
-    }
 }

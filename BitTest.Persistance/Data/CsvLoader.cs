@@ -1,8 +1,10 @@
-﻿using BitTest.Models;
+﻿using BitTest.Core.Maps;
+using BitTest.Core.Models;
+using BitTest.Core.Validators;
 using CsvHelper;
 using System.Globalization;
 
-namespace BitTest.Data;
+namespace BitTest.Persistance.Data;
 
 public class CsvLoader
 {

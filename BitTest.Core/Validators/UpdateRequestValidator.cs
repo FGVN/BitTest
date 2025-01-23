@@ -1,6 +1,7 @@
-﻿using FluentValidation;
+﻿using BitTest.Core.Requests;
+using FluentValidation;
 
-namespace BitTest.Models;
+namespace BitTest.Core.Validators;
 
 public class UpdateRequestValidator : AbstractValidator<UpdateRequest>
 {
